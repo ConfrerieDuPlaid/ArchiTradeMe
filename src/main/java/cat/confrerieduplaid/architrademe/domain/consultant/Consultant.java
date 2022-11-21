@@ -6,16 +6,29 @@ import java.util.Objects;
 public final class Consultant {
     private final ConsultantId id;
     private final List<Skill> skills;
-    private final ADR ard;
-    private final Disponibility disponibility;
-    private final Modality modality;
+    private final AverageDailyRate ard;
+    private final Availability disponibility;
+    // TODO Modality ?
 
-    public Consultant(ConsultantId id, List<Skill> skills, ADR ard, Disponibility disponibility, Modality modality) {
+    private Consultant(ConsultantId id, List<Skill> skills, AverageDailyRate averageDailyRate, Availability disponibility) {
         this.id = Objects.requireNonNull(id);
         this.skills = Objects.requireNonNull(skills);
-        this.ard = Objects.requireNonNull(ard);
+        this.ard = Objects.requireNonNull(averageDailyRate);
         this.disponibility = Objects.requireNonNull(disponibility);
-        this.modality = Objects.requireNonNull(modality);
+    }
+
+    public static Consultant create(
+            String id,
+            List<String> skills,
+            Double averageDailyRate,
+            List<String> availability) {
+
+        return new Consultant(
+                ConsultantId.of(id),
+                skills.stream().map(Skill::of).toList(),
+                AverageDailyRate.of(averageDailyRate),
+                Availability.of(availability)
+        );
     }
 
     //region getters
@@ -27,16 +40,12 @@ public final class Consultant {
         return skills;
     }
 
-    public ADR ard() {
+    public AverageDailyRate ard() {
         return ard;
     }
 
-    public Disponibility disponibility() {
+    public Availability disponibility() {
         return disponibility;
-    }
-
-    public Modality modality() {
-        return modality;
     }
     //endregion
 
@@ -61,7 +70,6 @@ public final class Consultant {
                 ", skills=" + skills +
                 ", ard=" + ard +
                 ", disponibility=" + disponibility +
-                ", modality=" + modality +
                 '}';
     }
     //endregion

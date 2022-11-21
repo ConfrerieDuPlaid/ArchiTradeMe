@@ -2,17 +2,17 @@ package cat.confrerieduplaid.architrademe.domain.consultant;
 
 import java.util.Objects;
 
-final class ADR {
+final class AverageDailyRate {
 
     private final double value;
 
-    private ADR(double value) {
+    private AverageDailyRate(double value) {
         if(value < 0.0) throw new IllegalArgumentException("ADR cannot be strict negative");
         this.value = value;
     }
 
-    public static ADR of(double value) {
-        return new ADR(value);
+    public static AverageDailyRate of(double value) {
+        return new AverageDailyRate(value);
     }
 
     //region equals & hashcode & toString
@@ -20,7 +20,7 @@ final class ADR {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ADR adr = (ADR) o;
+        AverageDailyRate adr = (AverageDailyRate) o;
         return Double.compare(adr.value, value) == 0;
     }
 
