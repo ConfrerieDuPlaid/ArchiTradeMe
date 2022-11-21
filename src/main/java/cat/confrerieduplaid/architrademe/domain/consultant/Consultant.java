@@ -6,15 +6,15 @@ import java.util.Objects;
 public final class Consultant {
     private final ConsultantId id;
     private final List<Skill> skills;
-    private final AverageDailyRate ard;
-    private final Availability disponibility;
+    private final AverageDailyRate averageDailyRate;
+    private final Availability availability;
     // TODO Modality ?
 
     private Consultant(ConsultantId id, List<Skill> skills, AverageDailyRate averageDailyRate, Availability disponibility) {
         this.id = Objects.requireNonNull(id);
         this.skills = Objects.requireNonNull(skills);
-        this.ard = Objects.requireNonNull(averageDailyRate);
-        this.disponibility = Objects.requireNonNull(disponibility);
+        this.averageDailyRate = Objects.requireNonNull(averageDailyRate);
+        this.availability = Objects.requireNonNull(disponibility);
     }
 
     public static Consultant create(
@@ -32,20 +32,8 @@ public final class Consultant {
     }
 
     //region getters
-    public ConsultantId id() {
-        return id;
-    }
-
-    public List<Skill> skills() {
-        return skills;
-    }
-
-    public AverageDailyRate ard() {
-        return ard;
-    }
-
-    public Availability disponibility() {
-        return disponibility;
+    public String id() {
+        return id.toString();
     }
     //endregion
 
@@ -68,8 +56,8 @@ public final class Consultant {
         return "Consultant{" +
                 "id=" + id +
                 ", skills=" + skills +
-                ", ard=" + ard +
-                ", disponibility=" + disponibility +
+                ", ard=" + averageDailyRate +
+                ", availability=" + availability +
                 '}';
     }
     //endregion
