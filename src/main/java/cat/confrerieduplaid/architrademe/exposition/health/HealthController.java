@@ -1,4 +1,4 @@
-package cat.confrerieduplaid.architrademe.exposition;
+package cat.confrerieduplaid.architrademe.exposition.health;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
