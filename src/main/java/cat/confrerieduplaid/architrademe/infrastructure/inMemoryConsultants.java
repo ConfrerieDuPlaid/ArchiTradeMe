@@ -2,7 +2,6 @@ package cat.confrerieduplaid.architrademe.infrastructure;
 
 import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
 import cat.confrerieduplaid.architrademe.domain.consultant.Consultants;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -17,11 +16,14 @@ public class inMemoryConsultants implements Consultants {
     @Override
     public void add(Consultant consultant) {
         this.data.put(consultant.id(), consultant);
-        System.out.println("this.data = " + this.data);
     }
 
     @Override
-    public List<Consultant> search() {
-        return this.data.values().stream().toList();
+    public List<Consultant> search(String skills) {
+        return this.data
+                .values()
+                .stream()
+                .filter(consultant -> consultant.hasSkill(skills))
+                .toList();
     }
 }

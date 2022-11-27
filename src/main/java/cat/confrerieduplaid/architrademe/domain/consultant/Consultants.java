@@ -11,5 +11,5 @@ public interface Consultants {
 
     void add(Consultant consultant);
 
-    List<Consultant> search();
+    List<Consultant> search(String skills);
 }

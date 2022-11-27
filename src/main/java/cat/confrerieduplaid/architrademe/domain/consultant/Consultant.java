@@ -1,7 +1,6 @@
 package cat.confrerieduplaid.architrademe.domain.consultant;
 
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,9 +32,16 @@ public final class Consultant {
         );
     }
 
+    public boolean hasSkill(String skillName) {
+        final var cleanSkillName = Objects
+                .requireNonNull(skillName)
+                .trim();
+        return this.skills.contains(Skill.of(cleanSkillName));
+    }
+
     //region getters
     public String id() {
-        return id.toString();
+        return id.value();
     }
     //endregion
 

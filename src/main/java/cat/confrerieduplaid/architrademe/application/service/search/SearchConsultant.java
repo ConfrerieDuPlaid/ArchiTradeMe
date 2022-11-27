@@ -16,7 +16,7 @@ public final class SearchConsultant {
         this.consultants = consultants;
     }
 
-    public List<Consultant> search(){
-        return this.consultants.search();
+    public List<Consultant> search(String skills){
+        return this.consultants.search(skills);
     }
 }

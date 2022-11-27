@@ -3,13 +3,9 @@ package cat.confrerieduplaid.architrademe.exposition.consultant;
 import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultant;
 import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantDto;
 import cat.confrerieduplaid.architrademe.application.service.search.SearchConsultant;
-import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
 import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantResult;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -44,9 +40,11 @@ public class ConsultantController {
     }
 
     @GetMapping
-    ResponseEntity<List<SearchConsultantResult>> search() {
+    ResponseEntity<List<SearchConsultantResult>> search(
+            @RequestParam(required = false) String skills
+    ) {
         final var result = this.searchConsultant
-                .search()
+                .search(skills)
                 .stream()
                 .map(SearchConsultantResult::adapt)
                 .toList();

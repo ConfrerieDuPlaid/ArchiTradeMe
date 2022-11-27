@@ -6,7 +6,6 @@ import java.util.Objects;
 final class Skill {
 
     private final String value;
-    private final Map<String, Skill> _cache = Map.of();
 
     private Skill(String value) {
         this.value = Objects.requireNonNull(value);
