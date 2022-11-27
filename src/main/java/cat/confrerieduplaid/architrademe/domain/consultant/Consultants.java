@@ -1,5 +1,6 @@
 package cat.confrerieduplaid.architrademe.domain.consultant;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface Consultants {
@@ -10,4 +11,5 @@ public interface Consultants {
 
     void add(Consultant consultant);
 
+    List<Consultant> search();
 }

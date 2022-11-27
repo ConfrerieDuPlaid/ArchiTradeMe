@@ -1,5 +1,7 @@
 package cat.confrerieduplaid.architrademe.domain.consultant;
 
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 

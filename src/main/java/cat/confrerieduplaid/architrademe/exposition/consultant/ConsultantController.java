@@ -1,11 +1,17 @@
 package cat.confrerieduplaid.architrademe.exposition.consultant;
 
-import cat.confrerieduplaid.architrademe.application.service.RegisterConsultant;
-import cat.confrerieduplaid.architrademe.application.service.RegisterConsultantDto;
+import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultant;
+import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantDto;
+import cat.confrerieduplaid.architrademe.application.service.search.SearchConsultant;
+import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
+import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantResult;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -13,9 +19,13 @@ import java.util.UUID;
 public class ConsultantController {
 
     private final RegisterConsultant registerConsultant;
-
-    public ConsultantController(RegisterConsultant registerConsultant) {
+    private final SearchConsultant searchConsultant;
+    public ConsultantController(
+            RegisterConsultant registerConsultant,
+            SearchConsultant searchConsultant
+    ) {
         this.registerConsultant = registerConsultant;
+        this.searchConsultant = searchConsultant;
     }
 
     @PostMapping
@@ -31,5 +41,18 @@ public class ConsultantController {
                 .build();
         this.registerConsultant.register(toCreate);
         return id;
+    }
+
+    @GetMapping
+    ResponseEntity<List<SearchConsultantResult>> search() {
+        final var result = this.searchConsultant
+                .search()
+                .stream()
+                .map(SearchConsultantResult::adapt)
+                .toList();
+
+        return ResponseEntity
+                .ok()
+                .body(result);
     }
 }
