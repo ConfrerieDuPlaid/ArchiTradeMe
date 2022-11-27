@@ -20,9 +20,9 @@ public final class RegisterConsultant {
     public void register(RegisterConsultantDto dto) {
         final var consultant = Consultant.create(
                 dto.id,
-                Arrays.stream(dto.skills).toList(),
+                dto.skills,
                 dto.averageDailyRate,
-                Arrays.stream(dto.availability).toList()
+                dto.availability
         );
         this.consultants.add(consultant);
     }

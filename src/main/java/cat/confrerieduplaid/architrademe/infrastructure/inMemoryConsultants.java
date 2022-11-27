@@ -23,7 +23,7 @@ public class inMemoryConsultants implements Consultants {
         return this.data
                 .values()
                 .stream()
-                .filter(consultant -> consultant.hasSkill(skills))
+                .filter(consultant -> skills == null || consultant.hasSkill(skills))
                 .toList();
     }
 }

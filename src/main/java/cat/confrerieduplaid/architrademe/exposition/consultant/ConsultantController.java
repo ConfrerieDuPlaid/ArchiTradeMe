@@ -7,6 +7,7 @@ import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantResul
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,15 +26,15 @@ public class ConsultantController {
     }
 
     @PostMapping
-    String create() {
+    String create(@RequestBody RegisterConsultantBody registerConsultantDto) {
         final String id = UUID.randomUUID().toString();
         final var toCreate = RegisterConsultantDto.builder()
                 .id(id)
-                .lastName("GEDUSOR")
-                .firstName("Tom")
-                .availability(new String[]{"2022-11-21", "2022-11-22"})
-                .skills(new String[]{"Architecture Logicielle", "UML"})
-                .averageDailyRate(100.0)
+                .lastName(registerConsultantDto.lastName)
+                .firstName(registerConsultantDto.firstName)
+                .availability(Arrays.stream(registerConsultantDto.availability).toList())
+                .skills(Arrays.stream(registerConsultantDto.skills).toList())
+                .averageDailyRate(registerConsultantDto.averageDailyRate)
                 .build();
         this.registerConsultant.register(toCreate);
         return id;
