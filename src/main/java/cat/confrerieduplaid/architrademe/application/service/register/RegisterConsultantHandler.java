@@ -4,25 +4,25 @@ import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
 import cat.confrerieduplaid.architrademe.domain.consultant.Consultants;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
-public final class RegisterConsultant {
+public final class RegisterConsultantHandler {
 
     private final Consultants consultants;
 
-    public RegisterConsultant(
+    public RegisterConsultantHandler(
             Consultants consultants
     ) {
         this.consultants = consultants;
     }
 
-    public void register(RegisterConsultantDto dto) {
+    public void register(RegisterConsultantCommand command) {
         final var consultant = Consultant.create(
-                dto.id,
-                dto.skills,
-                dto.averageDailyRate,
-                dto.availability
+                command.id,
+                command.firstName,
+                command.lastName,
+                command.skills,
+                command.averageDailyRate,
+                command.availability
         );
         this.consultants.add(consultant);
     }

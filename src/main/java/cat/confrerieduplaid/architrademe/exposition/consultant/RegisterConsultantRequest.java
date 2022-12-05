@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
 
-public class RegisterConsultantBody {
+public class RegisterConsultantRequest {
     public String lastName;
     public String firstName;
     public String[] skills;

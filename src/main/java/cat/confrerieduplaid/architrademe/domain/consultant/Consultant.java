@@ -6,13 +6,19 @@ import java.util.Objects;
 
 public final class Consultant {
     private final ConsultantId id;
+
+    private final String firstName;
+
+    private final String lastName;
     private final List<Skill> skills;
     private final AverageDailyRate averageDailyRate;
     private final Availability availability;
     // TODO Modality ?
 
-    private Consultant(ConsultantId id, List<Skill> skills, AverageDailyRate averageDailyRate, Availability disponibility) {
+    private Consultant(ConsultantId id, String firstName, String lastName, List<Skill> skills, AverageDailyRate averageDailyRate, Availability disponibility) {
         this.id = Objects.requireNonNull(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.skills = Objects.requireNonNull(skills);
         this.averageDailyRate = Objects.requireNonNull(averageDailyRate);
         this.availability = Objects.requireNonNull(disponibility);
@@ -20,12 +26,16 @@ public final class Consultant {
 
     public static Consultant create(
             String id,
+            String firstName,
+            String lastName,
             List<String> skills,
             Double averageDailyRate,
             List<String> availability) {
 
         return new Consultant(
                 ConsultantId.of(id),
+                firstName,
+                lastName,
                 skills.stream().map(Skill::of).toList(),
                 AverageDailyRate.of(averageDailyRate),
                 Availability.of(availability)

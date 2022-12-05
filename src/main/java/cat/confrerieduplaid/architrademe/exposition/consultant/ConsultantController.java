@@ -1,7 +1,7 @@
 package cat.confrerieduplaid.architrademe.exposition.consultant;
 
-import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultant;
-import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantDto;
+import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantHandler;
+import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantCommand;
 import cat.confrerieduplaid.architrademe.application.service.search.SearchConsultant;
 import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantResult;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,10 @@ import java.util.UUID;
 @RequestMapping("/consultant")
 public class ConsultantController {
 
-    private final RegisterConsultant registerConsultant;
+    private final RegisterConsultantHandler registerConsultant;
     private final SearchConsultant searchConsultant;
     public ConsultantController(
-            RegisterConsultant registerConsultant,
+            RegisterConsultantHandler registerConsultant,
             SearchConsultant searchConsultant
     ) {
         this.registerConsultant = registerConsultant;
@@ -26,9 +26,9 @@ public class ConsultantController {
     }
 
     @PostMapping
-    String create(@RequestBody RegisterConsultantBody registerConsultantDto) {
+    String create(@RequestBody RegisterConsultantRequest registerConsultantDto) {
         final String id = UUID.randomUUID().toString();
-        final var toCreate = RegisterConsultantDto.builder()
+        final var toCreate = RegisterConsultantCommand.builder()
                 .id(id)
                 .lastName(registerConsultantDto.lastName)
                 .firstName(registerConsultantDto.firstName)
