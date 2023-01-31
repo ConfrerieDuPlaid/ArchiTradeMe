@@ -1,5 +1,6 @@
-package cat.confrerieduplaid.architrademe.domain.consultant;
+package cat.confrerieduplaid.architrademe.exposition.consultant;
 
+import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize

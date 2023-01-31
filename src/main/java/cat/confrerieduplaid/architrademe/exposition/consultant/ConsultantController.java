@@ -3,16 +3,13 @@ package cat.confrerieduplaid.architrademe.exposition.consultant;
 import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantHandler;
 import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantCommand;
 import cat.confrerieduplaid.architrademe.application.service.search.SearchConsultant;
-import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
-@RequestMapping("/consultant")
+@RequestMapping("/consultants")
 public class ConsultantController {
 
     private final RegisterConsultantHandler registerConsultant;
@@ -32,7 +29,7 @@ public class ConsultantController {
                 .id(id)
                 .lastName(registerConsultantDto.lastName)
                 .firstName(registerConsultantDto.firstName)
-                .availability(Arrays.stream(registerConsultantDto.availability).toList())
+                .availability(registerConsultantDto.availability)
                 .skills(Arrays.stream(registerConsultantDto.skills).toList())
                 .averageDailyRate(registerConsultantDto.averageDailyRate)
                 .build();
@@ -42,10 +39,17 @@ public class ConsultantController {
 
     @GetMapping
     ResponseEntity<List<SearchConsultantResult>> search(
-            @RequestParam(required = false) String skills
+            @RequestParam(required = false) String skills,
+            @RequestParam(required = false) String minAverageDailyRate,
+            @RequestParam(required = false) String maxAverageDailyRate
     ) {
+        final var criteria = new HashMap<String, String>();
+        if(skills != null) criteria.put("Skills", skills);
+        if(minAverageDailyRate != null) criteria.put("MinAverageDailyRate", minAverageDailyRate);
+        if(maxAverageDailyRate != null) criteria.put("MaxAverageDailyRate", maxAverageDailyRate);
+
         final var result = this.searchConsultant
-                .search(skills)
+                .search(criteria)
                 .stream()
                 .map(SearchConsultantResult::adapt)
                 .toList();

@@ -2,6 +2,7 @@ package cat.confrerieduplaid.architrademe.infrastructure;
 
 import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
 import cat.confrerieduplaid.architrademe.domain.consultant.Consultants;
+import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantCriteria;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -19,11 +20,13 @@ public class inMemoryConsultants implements Consultants {
     }
 
     @Override
-    public List<Consultant> search(String skills) {
+    public List<Consultant> search(SearchConsultantCriteria criteria) {
         return this.data
                 .values()
                 .stream()
-                .filter(consultant -> skills == null || consultant.hasSkill(skills))
+                .filter(consultant -> criteria.skills() == null || consultant.hasAtLeastOneOfThoseSkills(criteria.skills()))
+                .filter(consultant -> consultant.averageDailyRate() <= criteria.maxAverageDailyRate().value())
+                .filter(consultant -> consultant.averageDailyRate() >= criteria.minAverageDailyRate().value())
                 .toList();
     }
 }

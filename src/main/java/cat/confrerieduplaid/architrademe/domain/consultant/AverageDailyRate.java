@@ -2,7 +2,7 @@ package cat.confrerieduplaid.architrademe.domain.consultant;
 
 import java.util.Objects;
 
-final class AverageDailyRate {
+public final class AverageDailyRate {
 
     private final double value;
 
@@ -13,6 +13,18 @@ final class AverageDailyRate {
 
     public static AverageDailyRate of(double value) {
         return new AverageDailyRate(value);
+    }
+
+    public static AverageDailyRate of(String value) {
+        try{
+            return new AverageDailyRate(Double.parseDouble(value));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("AverageDailyRate invalid input \"" + value + "\".");
+        }
+    }
+
+    public double value() {
+        return value;
     }
 
     //region equals & hashcode & toString

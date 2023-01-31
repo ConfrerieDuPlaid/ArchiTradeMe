@@ -42,11 +42,21 @@ public final class Consultant {
         );
     }
 
-    public boolean hasSkill(String skillName) {
+    public boolean hasSkill(String skillsName) {
         final var cleanSkillName = Objects
-                .requireNonNull(skillName)
+                .requireNonNull(skillsName)
                 .trim();
         return this.skills.contains(Skill.of(cleanSkillName));
+    }
+
+    public boolean hasAtLeastOneOfThoseSkills(List<String> skillsName) {
+        return skillsName
+                .stream()
+                .anyMatch(this::hasSkill);
+    }
+
+    public Double averageDailyRate() {
+        return averageDailyRate.value();
     }
 
     //region getters

@@ -15,6 +15,10 @@ final class Skill {
         return new Skill(value);
     }
 
+    public String value() {
+        return this.value;
+    }
+
     //region equals & hashcode & toString
     @Override
     public boolean equals(Object o) {
