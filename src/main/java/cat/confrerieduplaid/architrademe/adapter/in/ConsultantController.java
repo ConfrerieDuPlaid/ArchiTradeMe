@@ -1,8 +1,9 @@
-package cat.confrerieduplaid.architrademe.exposition.consultant;
+package cat.confrerieduplaid.architrademe.adapter.in;
 
-import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantHandler;
-import cat.confrerieduplaid.architrademe.application.service.register.RegisterConsultantCommand;
-import cat.confrerieduplaid.architrademe.application.service.search.SearchConsultant;
+import cat.confrerieduplaid.architrademe.application.port.in.SearchConsultantQuery;
+import cat.confrerieduplaid.architrademe.application.service.RegisterConsultantService;
+import cat.confrerieduplaid.architrademe.application.port.in.RegisterConsultantCommand;
+import cat.confrerieduplaid.architrademe.application.service.SearchConsultantService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +13,11 @@ import java.util.*;
 @RequestMapping("/consultants")
 public class ConsultantController {
 
-    private final RegisterConsultantHandler registerConsultant;
-    private final SearchConsultant searchConsultant;
+    private final RegisterConsultantService registerConsultant;
+    private final SearchConsultantService searchConsultant;
     public ConsultantController(
-            RegisterConsultantHandler registerConsultant,
-            SearchConsultant searchConsultant
+            RegisterConsultantService registerConsultant,
+            SearchConsultantService searchConsultant
     ) {
         this.registerConsultant = registerConsultant;
         this.searchConsultant = searchConsultant;
@@ -33,25 +34,28 @@ public class ConsultantController {
                 .skills(Arrays.stream(registerConsultantDto.skills).toList())
                 .averageDailyRate(registerConsultantDto.averageDailyRate)
                 .build();
-        this.registerConsultant.register(toCreate);
+        this.registerConsultant.handle(toCreate);
         return id;
     }
 
     @GetMapping
-    ResponseEntity<List<SearchConsultantResult>> search(
+    ResponseEntity<List<SearchConsultantResponse>> search(
             @RequestParam(required = false) String skills,
-            @RequestParam(required = false) String minAverageDailyRate,
-            @RequestParam(required = false) String maxAverageDailyRate
+            @RequestParam(required = false) Double minAverageDailyRate,
+            @RequestParam(required = false) Double maxAverageDailyRate
     ) {
-        final var criteria = new HashMap<String, String>();
-        if(skills != null) criteria.put("Skills", skills);
-        if(minAverageDailyRate != null) criteria.put("MinAverageDailyRate", minAverageDailyRate);
-        if(maxAverageDailyRate != null) criteria.put("MaxAverageDailyRate", maxAverageDailyRate);
+
+        final var query = SearchConsultantQuery
+                .builder()
+                .skills(skills == null ? null : List.of(skills.split(",")))
+                .minAverageDailyRate(minAverageDailyRate)
+                .maxAverageDailyRate(maxAverageDailyRate)
+                .build();
 
         final var result = this.searchConsultant
-                .search(criteria)
+                .search(query)
                 .stream()
-                .map(SearchConsultantResult::adapt)
+                .map(SearchConsultantResponse::adapt)
                 .toList();
 
         return ResponseEntity

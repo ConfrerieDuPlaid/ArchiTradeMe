@@ -1,4 +1,4 @@
-package cat.confrerieduplaid.architrademe.domain.consultant;
+package cat.confrerieduplaid.architrademe.domain;
 
 import java.util.Objects;
 

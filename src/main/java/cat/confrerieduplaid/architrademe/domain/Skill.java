@@ -1,6 +1,5 @@
-package cat.confrerieduplaid.architrademe.domain.consultant;
+package cat.confrerieduplaid.architrademe.domain;
 
-import java.util.Map;
 import java.util.Objects;
 
 final class Skill {

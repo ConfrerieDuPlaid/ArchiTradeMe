@@ -1,4 +1,4 @@
-package cat.confrerieduplaid.architrademe.domain.consultant;
+package cat.confrerieduplaid.architrademe.domain;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ public final class SearchConsultantCriteria {
         return new SearchConsultantCriteria();
     }
 
-    public SearchConsultantCriteria withSkills(String skills) {
+    public SearchConsultantCriteria withSkills(List<String> skills) {
         return new SearchConsultantCriteria(
-                  skills == null ? null : List.of(skills.split(","))
+                  skills
                 , this.minAverageDailyRate
                 , this.maxAverageDailyRate
                 );

@@ -1,4 +1,4 @@
-package cat.confrerieduplaid.architrademe.exposition.consultant;
+package cat.confrerieduplaid.architrademe.adapter.in;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

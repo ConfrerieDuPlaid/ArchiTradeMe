@@ -1,8 +1,9 @@
-package cat.confrerieduplaid.architrademe.infrastructure;
+package cat.confrerieduplaid.architrademe.adapter.out;
 
-import cat.confrerieduplaid.architrademe.domain.consultant.Consultant;
-import cat.confrerieduplaid.architrademe.domain.consultant.Consultants;
-import cat.confrerieduplaid.architrademe.domain.consultant.SearchConsultantCriteria;
+import cat.confrerieduplaid.architrademe.application.port.out.CreateConsultantsPort;
+import cat.confrerieduplaid.architrademe.application.port.out.SearchConsultantPort;
+import cat.confrerieduplaid.architrademe.domain.Consultant;
+import cat.confrerieduplaid.architrademe.domain.SearchConsultantCriteria;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -10,7 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class inMemoryConsultants implements Consultants {
+public class InMemoryConsultantsPersistenceAdapter implements
+        CreateConsultantsPort,
+        SearchConsultantPort
+{
 
     private final Map<String, Consultant> data = new HashMap<>();
 

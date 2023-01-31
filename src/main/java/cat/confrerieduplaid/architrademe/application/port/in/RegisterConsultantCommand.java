@@ -1,4 +1,4 @@
-package cat.confrerieduplaid.architrademe.application.service.register;
+package cat.confrerieduplaid.architrademe.application.port.in;
 
 import lombok.Builder;
 
