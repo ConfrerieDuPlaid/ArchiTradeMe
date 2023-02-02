@@ -1,13 +1,15 @@
 package cat.confrerieduplaid.architrademe.adapter.in;
 
+import cat.confrerieduplaid.architrademe.application.port.in.RegisterConsultantCommand;
 import cat.confrerieduplaid.architrademe.application.port.in.SearchConsultantQuery;
 import cat.confrerieduplaid.architrademe.application.service.RegisterConsultantService;
-import cat.confrerieduplaid.architrademe.application.port.in.RegisterConsultantCommand;
 import cat.confrerieduplaid.architrademe.application.service.SearchConsultantService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/consultants")
@@ -53,7 +55,7 @@ public class ConsultantController {
                 .build();
 
         final var result = this.searchConsultant
-                .search(query)
+                .handle(query)
                 .stream()
                 .map(SearchConsultantResponse::adapt)
                 .toList();

@@ -2,7 +2,7 @@ package cat.confrerieduplaid.architrademe.domain;
 
 import java.util.Objects;
 
-final class ConsultantId {
+public final class ConsultantId {
     private final String value;
 
     private ConsultantId(String value) {

@@ -13,24 +13,36 @@ public final class Consultant {
     private final List<Skill> skills;
     private final AverageDailyRate averageDailyRate;
     private final Availability availability;
+    private final List<Intervention> interventions;
     // TODO Modality ?
 
-    private Consultant(ConsultantId id, String firstName, String lastName, List<Skill> skills, AverageDailyRate averageDailyRate, Availability disponibility) {
+    private Consultant(
+            ConsultantId id
+            , String firstName
+            , String lastName
+            , List<Skill> skills
+            , AverageDailyRate averageDailyRate
+            , Availability disponibility
+            , List<Intervention> interventions
+    ) {
         this.id = Objects.requireNonNull(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.skills = Objects.requireNonNull(skills);
         this.averageDailyRate = Objects.requireNonNull(averageDailyRate);
         this.availability = Objects.requireNonNull(disponibility);
+        this.interventions = interventions;
     }
 
     public static Consultant create(
-            String id,
-            String firstName,
-            String lastName,
-            List<String> skills,
-            Double averageDailyRate,
-            List<String> availability) {
+            String id
+            , String firstName
+            , String lastName
+            , List<String> skills
+            , Double averageDailyRate
+            , List<String> availability
+            , List<Intervention> interventions
+    ) {
 
         return new Consultant(
                 ConsultantId.of(id),
@@ -38,8 +50,8 @@ public final class Consultant {
                 lastName,
                 skills.stream().map(Skill::of).toList(),
                 AverageDailyRate.of(averageDailyRate),
-                Availability.of(availability)
-        );
+                Availability.of(availability),
+                interventions);
     }
 
     public boolean hasSkill(String skillsName) {
@@ -60,8 +72,8 @@ public final class Consultant {
     }
 
     //region getters
-    public String id() {
-        return id.value();
+    public ConsultantId id() {
+        return id;
     }
     //endregion
 
@@ -87,6 +99,10 @@ public final class Consultant {
                 ", ard=" + averageDailyRate +
                 ", availability=" + availability +
                 '}';
+    }
+
+    public List<Intervention> interventions() {
+        return this.interventions;
     }
     //endregion
 }

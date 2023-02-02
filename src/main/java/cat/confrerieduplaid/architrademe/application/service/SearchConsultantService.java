@@ -20,7 +20,7 @@ public final class SearchConsultantService {
         this.searchConsultantPort = searchConsultantPort;
     }
 
-    public List<Consultant> search(SearchConsultantQuery query){
+    public List<Consultant> handle(SearchConsultantQuery query){
         final var criteria = SearchConsultantCriteria
                 .create()
                 .withSkills(query.skills)

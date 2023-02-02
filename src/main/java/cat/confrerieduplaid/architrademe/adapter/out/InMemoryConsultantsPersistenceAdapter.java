@@ -1,9 +1,9 @@
 package cat.confrerieduplaid.architrademe.adapter.out;
 
 import cat.confrerieduplaid.architrademe.application.port.out.CreateConsultantsPort;
+import cat.confrerieduplaid.architrademe.application.port.out.FindConsultantsInterventionsPort;
 import cat.confrerieduplaid.architrademe.application.port.out.SearchConsultantPort;
-import cat.confrerieduplaid.architrademe.domain.Consultant;
-import cat.confrerieduplaid.architrademe.domain.SearchConsultantCriteria;
+import cat.confrerieduplaid.architrademe.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -11,12 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class InMemoryConsultantsPersistenceAdapter implements
-        CreateConsultantsPort,
-        SearchConsultantPort
+public final class InMemoryConsultantsPersistenceAdapter implements
+          CreateConsultantsPort
+        , SearchConsultantPort
+        , FindConsultantsInterventionsPort
+
 {
 
-    private final Map<String, Consultant> data = new HashMap<>();
+    private final Map<ConsultantId, Consultant> data = new HashMap<>();
 
     @Override
     public void add(Consultant consultant) {
@@ -32,5 +34,12 @@ public class InMemoryConsultantsPersistenceAdapter implements
                 .filter(consultant -> consultant.averageDailyRate() <= criteria.maxAverageDailyRate().value())
                 .filter(consultant -> consultant.averageDailyRate() >= criteria.minAverageDailyRate().value())
                 .toList();
+    }
+
+    @Override
+    public List<Intervention> find(ConsultantId consultantId) {
+        return this.data
+                .computeIfAbsent(consultantId, idNotFound -> {throw ConsultantException.notFoundAccountId(idNotFound);})
+                .interventions();
     }
 }

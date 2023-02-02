@@ -12,6 +12,6 @@ public class SearchConsultantResponse {
     }
 
     public static SearchConsultantResponse adapt(Consultant consultant){
-        return new SearchConsultantResponse(consultant.id());
+        return new SearchConsultantResponse(consultant.id().value());
     }
 }
