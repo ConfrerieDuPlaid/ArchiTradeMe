@@ -31,8 +31,8 @@ public final class InMemoryConsultantsPersistenceAdapter implements
                 .values()
                 .stream()
                 .filter(consultant -> criteria.skills() == null || consultant.hasAtLeastOneOfThoseSkills(criteria.skills()))
-                .filter(consultant -> consultant.averageDailyRate() <= criteria.maxAverageDailyRate().value())
-                .filter(consultant -> consultant.averageDailyRate() >= criteria.minAverageDailyRate().value())
+                .filter(consultant -> consultant.averageDailyRate() <= criteria.maxAverageDailyRate().value()) // TODO method de comparaison dans le VO
+                .filter(consultant -> consultant.averageDailyRate() >= criteria.minAverageDailyRate().value()) // TODO method de comparaison dans le VO
                 .toList();
     }
 

@@ -6,7 +6,7 @@ public class Money {
     private final Double amount;
 
     private Money(Double amount) {
-        this.amount = Objects.requireNonNull(amount);;
+        this.amount = Objects.requireNonNull(amount);
     }
 
     public static Money of(Double amount) {
@@ -21,8 +21,8 @@ public class Money {
         return this.amount < 0;
     }
 
-    public Money add(Percentage percentage) {
-        return Money.of(percentage.increase(amount));
+    public Money add(VAT vat) {
+        return Money.of(amount * (1 + vat.perCent()/100));
     }
 
     public Money times(Integer integer) {

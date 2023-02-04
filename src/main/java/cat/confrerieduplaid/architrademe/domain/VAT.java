@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 final class VAT {
-    private final Percentage value;
-    private static final Map<Percentage, VAT> _cache = new HashMap<>();
+    private final Integer value;
+    private static final Map<Integer, VAT> _cache = new HashMap<>();
 
-    private VAT(Percentage percentage) {
+    private VAT(Integer percentage) {
         this.value = percentage;
     }
 
-    public static VAT of(Percentage rate) {
+    public static VAT of(Integer rate) {
         var vat = VAT._cache.get(rate);
         if(vat != null) return vat;
 
@@ -20,12 +20,12 @@ final class VAT {
         return vat;
     }
 
-    public Percentage value() {
+    public Integer perCent() {
         return value;
     }
 
-    public Money apply(Money money) {
-        return money.add(this.value);
+    public Double rate() {
+        return Double.valueOf(value) / 100.0;
     }
 
     @Override

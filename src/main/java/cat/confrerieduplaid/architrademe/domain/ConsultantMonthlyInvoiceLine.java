@@ -14,15 +14,16 @@ public final class ConsultantMonthlyInvoiceLine {
         this.intervention = Objects.requireNonNull(intervention);
         this.vat = Objects.requireNonNull(vat);
 
-        final var dutyFreePrice = intervention.hourPrice().times(intervention.numberOfHoursWorked());
-        this.amount = vat.apply(dutyFreePrice);
+        this.amount = dutyFreePrice(intervention).add(vat);
+    }
+
+    private Money dutyFreePrice(Intervention intervention) {
+        final var numberOfHoursWorked = intervention.numberOfHoursWorked();
+
+        return intervention.hourPrice().times(numberOfHoursWorked);
     }
 
     public static ConsultantMonthlyInvoiceLine of(Intervention intervention, VAT vat) {
         return new ConsultantMonthlyInvoiceLine(intervention, vat);
-    }
-
-    public Money amount() {
-        return amount;
     }
 }
