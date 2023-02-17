@@ -75,6 +75,14 @@ public final class Consultant {
     public ConsultantId id() {
         return id;
     }
+
+    public String firstname() {
+        return firstName;
+    }
+
+    public String lastname() {
+        return lastName;
+    }
     //endregion
 
     //region equals & hashcode & tostring

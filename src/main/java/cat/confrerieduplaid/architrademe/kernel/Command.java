@@ -1,6 +1,6 @@
 package cat.confrerieduplaid.architrademe.kernel;
 
-public interface Query {
+public interface Command {
     default String name() {
         return this.getClass().getSimpleName();
     }

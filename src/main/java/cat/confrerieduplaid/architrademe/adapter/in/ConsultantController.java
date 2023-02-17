@@ -2,8 +2,10 @@ package cat.confrerieduplaid.architrademe.adapter.in;
 
 import cat.confrerieduplaid.architrademe.application.port.in.RegisterConsultantCommand;
 import cat.confrerieduplaid.architrademe.application.port.in.SearchConsultantQuery;
-import cat.confrerieduplaid.architrademe.application.service.RegisterConsultantService;
-import cat.confrerieduplaid.architrademe.application.service.SearchConsultantService;
+import cat.confrerieduplaid.architrademe.application.service.dto.SearchConsultantResultDto;
+import cat.confrerieduplaid.architrademe.kernel.CommandBus;
+import cat.confrerieduplaid.architrademe.kernel.QueryBus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,20 +17,22 @@ import java.util.UUID;
 @RequestMapping("/consultants")
 public class ConsultantController {
 
-    private final RegisterConsultantService registerConsultant;
-    private final SearchConsultantService searchConsultant;
+    private final CommandBus commandBus;
+    private final QueryBus queryBus;
+
+    @Autowired
     public ConsultantController(
-            RegisterConsultantService registerConsultant,
-            SearchConsultantService searchConsultant
+            CommandBus commandBus,
+            QueryBus queryBus
     ) {
-        this.registerConsultant = registerConsultant;
-        this.searchConsultant = searchConsultant;
+        this.commandBus = commandBus;
+        this.queryBus = queryBus;
     }
 
     @PostMapping
     String create(@RequestBody RegisterConsultantRequest registerConsultantDto) {
         final String id = UUID.randomUUID().toString();
-        final var toCreate = RegisterConsultantCommand.builder()
+        final var registerCommand = RegisterConsultantCommand.builder()
                 .id(id)
                 .lastName(registerConsultantDto.lastName)
                 .firstName(registerConsultantDto.firstName)
@@ -36,8 +40,7 @@ public class ConsultantController {
                 .skills(Arrays.stream(registerConsultantDto.skills).toList())
                 .averageDailyRate(registerConsultantDto.averageDailyRate)
                 .build();
-        this.registerConsultant.handle(toCreate);
-        return id;
+        return (String) commandBus.post(registerCommand);
     }
 
     @GetMapping
@@ -54,11 +57,8 @@ public class ConsultantController {
                 .maxAverageDailyRate(maxAverageDailyRate)
                 .build();
 
-        final var result = this.searchConsultant
-                .handle(query)
-                .stream()
-                .map(SearchConsultantResponse::adapt)
-                .toList();
+        final var consultants = (List<SearchConsultantResultDto>) queryBus.post(query);
+        final var result = consultants.stream().map(SearchConsultantResponse::adapt).toList();
 
         return ResponseEntity
                 .ok()

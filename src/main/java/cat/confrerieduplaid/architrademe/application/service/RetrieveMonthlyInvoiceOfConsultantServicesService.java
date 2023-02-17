@@ -5,7 +5,6 @@ import cat.confrerieduplaid.architrademe.application.port.out.FindConsultantsInt
 import cat.confrerieduplaid.architrademe.domain.*;
 import org.springframework.stereotype.Service;
 
-@Service
 public class RetrieveMonthlyInvoiceOfConsultantServicesService {
     private final FindConsultantsInterventionsPort findConsultantsInterventionsPort;
 

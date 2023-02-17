@@ -1,17 +1,10 @@
 package cat.confrerieduplaid.architrademe.adapter.in;
 
-import cat.confrerieduplaid.architrademe.domain.Consultant;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import cat.confrerieduplaid.architrademe.application.service.dto.SearchConsultantResultDto;
 
-@JsonSerialize
-public class SearchConsultantResponse {
-    public String id;
+public record SearchConsultantResponse(String id) {
 
-    public SearchConsultantResponse(String id) {
-        this.id = id;
-    }
-
-    public static SearchConsultantResponse adapt(Consultant consultant){
-        return new SearchConsultantResponse(consultant.id().value());
+    public static SearchConsultantResponse adapt(SearchConsultantResultDto consultant){
+        return new SearchConsultantResponse(consultant.id());
     }
 }

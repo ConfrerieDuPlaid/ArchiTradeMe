@@ -1,4 +1,4 @@
-package cat.confrerieduplaid.architrademe.configuration;
+package cat.confrerieduplaid.architrademe.adapter.in;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

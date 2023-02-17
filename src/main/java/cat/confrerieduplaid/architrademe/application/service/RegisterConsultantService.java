@@ -3,12 +3,11 @@ package cat.confrerieduplaid.architrademe.application.service;
 import cat.confrerieduplaid.architrademe.application.port.in.RegisterConsultantCommand;
 import cat.confrerieduplaid.architrademe.application.port.out.CreateConsultantsPort;
 import cat.confrerieduplaid.architrademe.domain.Consultant;
-import org.springframework.stereotype.Component;
+import cat.confrerieduplaid.architrademe.kernel.CommandHandler;
 
 import java.util.Collections;
 
-@Component
-public final class RegisterConsultantService {
+public final class RegisterConsultantService implements CommandHandler<String, RegisterConsultantCommand> {
 
     private final CreateConsultantsPort consultants;
 
@@ -18,7 +17,7 @@ public final class RegisterConsultantService {
         this.consultants = consultants;
     }
 
-    public void handle(RegisterConsultantCommand command) {
+    public String handle(RegisterConsultantCommand command) {
         final var consultant = Consultant.create(
                 command.id,
                 command.firstName,
@@ -29,5 +28,6 @@ public final class RegisterConsultantService {
                 Collections.emptyList()
         );
         this.consultants.add(consultant);
+        return consultant.id().value();
     }
 }
