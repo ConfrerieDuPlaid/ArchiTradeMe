@@ -1,16 +1,19 @@
 package cat.confrerieduplaid.architrademe.application.port.in;
 
 import cat.confrerieduplaid.architrademe.kernel.Query;
-import lombok.Builder;
 
 import java.util.List;
-import java.util.Objects;
 
-@Builder
-public class RetrieveMonthlyInvoiceOfConsultantInterventionsQuery implements Query {
+public final class RetrieveMonthlyInvoiceOfConsultantInterventionsQuery implements Query {
     public Integer year;
     public String monthName;
     public String idConsultant;
+
+    public RetrieveMonthlyInvoiceOfConsultantInterventionsQuery(Integer year, String monthName, String idConsultant) {
+        this.year = year;
+        this.monthName = monthName;
+        this.idConsultant = idConsultant;
+    }
 
     @Override
     public boolean validate() throws RuntimeException {

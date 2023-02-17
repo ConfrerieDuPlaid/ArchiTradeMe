@@ -15,4 +15,12 @@ public final class ConsultantMonthlyInvoice {
     public static ConsultantMonthlyInvoice of(ConsultantId consultantId, List<ConsultantMonthlyInvoiceLine> lines) {
         return new ConsultantMonthlyInvoice(consultantId, lines);
     }
+
+    public ConsultantId consultantId() {
+        return consultantId;
+    }
+
+    public List<ConsultantMonthlyInvoiceLine> lines() {
+        return lines;
+    }
 }

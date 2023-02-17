@@ -3,16 +3,17 @@ package cat.confrerieduplaid.architrademe.application.service;
 import cat.confrerieduplaid.architrademe.application.port.in.RetrieveMonthlyInvoiceOfConsultantInterventionsQuery;
 import cat.confrerieduplaid.architrademe.application.port.out.FindConsultantsInterventionsPort;
 import cat.confrerieduplaid.architrademe.domain.*;
-import org.springframework.stereotype.Service;
+import cat.confrerieduplaid.architrademe.kernel.QueryHandler;
 
-public class RetrieveMonthlyInvoiceOfConsultantServicesService {
+public class RetrieveMonthlyInvoiceOfConsultantServicesService
+        implements QueryHandler<ConsultantMonthlyInvoice, RetrieveMonthlyInvoiceOfConsultantInterventionsQuery> {
     private final FindConsultantsInterventionsPort findConsultantsInterventionsPort;
 
     public RetrieveMonthlyInvoiceOfConsultantServicesService(FindConsultantsInterventionsPort findConsultantsServicesPort) {
         this.findConsultantsInterventionsPort = findConsultantsServicesPort;
     }
 
-    ConsultantMonthlyInvoice handle(RetrieveMonthlyInvoiceOfConsultantInterventionsQuery query) {
+   public ConsultantMonthlyInvoice handle(RetrieveMonthlyInvoiceOfConsultantInterventionsQuery query) {
         final var consultantId = ConsultantId.of(query.idConsultant);
         final var interventions = findConsultantsInterventionsPort.find(consultantId);
 

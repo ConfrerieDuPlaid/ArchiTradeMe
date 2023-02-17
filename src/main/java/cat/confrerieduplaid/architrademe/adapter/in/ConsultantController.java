@@ -5,6 +5,7 @@ import cat.confrerieduplaid.architrademe.application.port.in.SearchConsultantQue
 import cat.confrerieduplaid.architrademe.application.service.dto.SearchConsultantResultDto;
 import cat.confrerieduplaid.architrademe.kernel.CommandBus;
 import cat.confrerieduplaid.architrademe.kernel.QueryBus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,19 +16,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/consultants")
+@RequiredArgsConstructor
 public class ConsultantController {
 
     private final CommandBus commandBus;
     private final QueryBus queryBus;
-
-    @Autowired
-    public ConsultantController(
-            CommandBus commandBus,
-            QueryBus queryBus
-    ) {
-        this.commandBus = commandBus;
-        this.queryBus = queryBus;
-    }
 
     @PostMapping
     String create(@RequestBody RegisterConsultantRequest registerConsultantDto) {
