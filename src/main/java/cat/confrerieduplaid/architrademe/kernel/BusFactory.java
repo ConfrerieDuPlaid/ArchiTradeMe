@@ -15,4 +15,8 @@ public final class BusFactory {
     public static QueryBus defaultQueryBus() {
         return new DefaultQueryBus(new HashMap<>());
     }
+
+    public static EventPublisher defaultEventHandler() {
+        return new DefaultEventPublisher(new HashMap<>());
+    }
 }
