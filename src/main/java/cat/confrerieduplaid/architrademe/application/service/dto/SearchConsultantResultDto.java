@@ -1,5 +1,6 @@
 package cat.confrerieduplaid.architrademe.application.service.dto;
 
+import cat.confrerieduplaid.architrademe.application.service.ConsultantReadModel;
 import cat.confrerieduplaid.architrademe.domain.Consultant;
 
 public record SearchConsultantResultDto(
@@ -7,7 +8,7 @@ public record SearchConsultantResultDto(
         String firstname,
         String lastname
 ) {
-    public static SearchConsultantResultDto fromConsultant(Consultant consultant) {
+    public static SearchConsultantResultDto fromConsultantReadModel(ConsultantReadModel consultant) {
         return new SearchConsultantResultDto(
                 consultant.id().value(),
                 consultant.firstname(),

@@ -14,7 +14,8 @@
     <name>ArchiTradeMe</name>
     <description>ArchiTradeMe</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>17</java.version>
+        <start-class>cat.confrerieduplaid.ArchiTradeMeApplication</start-class>
     </properties>
     <dependencies>
         <dependency>

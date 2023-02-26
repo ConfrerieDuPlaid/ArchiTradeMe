@@ -16,4 +16,9 @@ public class KernelConfiguration {
         return BusFactory.defaultQueryBus();
     }
 
+    @Bean
+    public EventPublisher eventBus() {
+        return BusFactory.defaultEventPublisher();
+    }
+
 }

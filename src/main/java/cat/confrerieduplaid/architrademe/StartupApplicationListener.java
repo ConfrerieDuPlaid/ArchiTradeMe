@@ -7,6 +7,7 @@ import cat.confrerieduplaid.architrademe.application.service.RegisterConsultantS
 import cat.confrerieduplaid.architrademe.application.service.RetrieveMonthlyInvoiceOfConsultantServicesService;
 import cat.confrerieduplaid.architrademe.application.service.SearchConsultantService;
 import cat.confrerieduplaid.architrademe.kernel.CommandBus;
+import cat.confrerieduplaid.architrademe.kernel.EventPublisher;
 import cat.confrerieduplaid.architrademe.kernel.QueryBus;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
@@ -15,11 +16,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-@SuppressWarnings("all")
 public class StartupApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CommandBus commandBus;
     private final QueryBus queryBus;
+    private final EventPublisher eventPublisher;
     private final RegisterConsultantService registerConsultantService;
     private final RetrieveMonthlyInvoiceOfConsultantServicesService retrieveMonthlyInvoiceOfConsultantServicesService;
     private final SearchConsultantService searchConsultantService;
@@ -31,5 +32,6 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
 
         queryBus.register(RetrieveMonthlyInvoiceOfConsultantInterventionsQuery.class, retrieveMonthlyInvoiceOfConsultantServicesService);
         queryBus.register(SearchConsultantQuery.class, searchConsultantService);
+
     }
 }

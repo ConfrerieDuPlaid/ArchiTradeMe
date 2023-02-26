@@ -16,7 +16,7 @@ public final class BusFactory {
         return new DefaultQueryBus(new HashMap<>());
     }
 
-    public static EventPublisher defaultEventHandler() {
+    public static EventPublisher defaultEventPublisher() {
         return new DefaultEventPublisher(new HashMap<>());
     }
 }

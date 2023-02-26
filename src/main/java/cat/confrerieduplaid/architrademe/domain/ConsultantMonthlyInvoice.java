@@ -2,6 +2,7 @@ package cat.confrerieduplaid.architrademe.domain;
 
 import java.util.List;
 
+
 public final class ConsultantMonthlyInvoice {
 
     private final ConsultantId consultantId;

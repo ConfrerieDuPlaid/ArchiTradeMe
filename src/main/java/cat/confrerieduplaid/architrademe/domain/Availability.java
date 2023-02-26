@@ -3,10 +3,10 @@ package cat.confrerieduplaid.architrademe.domain;
 import java.util.List;
 import java.util.Objects;
 
-final class Availability {
+public final class Availability {
     private final List<String> availability;
 
-    private Availability(List<String> availability) {
+    public Availability(List<String> availability) {
         this.availability = Objects.requireNonNull(availability);
     }
 

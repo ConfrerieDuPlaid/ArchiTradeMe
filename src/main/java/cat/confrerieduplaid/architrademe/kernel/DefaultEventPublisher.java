@@ -1,11 +1,14 @@
 package cat.confrerieduplaid.architrademe.kernel;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 
-final class DefaultEventPublisher<E extends Event> implements EventPublisher<E> {
+@Slf4j
+public final class DefaultEventPublisher<E extends Event> implements EventPublisher<E> {
     private final Map<Class<E>, EventHandler<E>> register;
 
-    DefaultEventPublisher(Map<Class<E>, EventHandler<E>> register) {
+    public DefaultEventPublisher(Map<Class<E>, EventHandler<E>> register) {
         this.register = register;
     }
 
@@ -13,9 +16,12 @@ final class DefaultEventPublisher<E extends Event> implements EventPublisher<E> 
     public void publish(E event) {
         var eventHandler = register.get(event.getClass());
         if (eventHandler == null) {
-            throw new ApplicationException(String.format("No handler for the event %s", event.name()));
+            log.warn("No handler found for event {}", event.getClass().getSimpleName());
+
+        } else {
+            eventHandler.handle(event);
         }
-        eventHandler.handle(event);
+
     }
 
     @Override

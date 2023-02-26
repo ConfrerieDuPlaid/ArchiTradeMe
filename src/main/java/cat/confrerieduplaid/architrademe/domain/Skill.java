@@ -2,7 +2,7 @@ package cat.confrerieduplaid.architrademe.domain;
 
 import java.util.Objects;
 
-final class Skill {
+public final class Skill {
 
     private final String value;
 

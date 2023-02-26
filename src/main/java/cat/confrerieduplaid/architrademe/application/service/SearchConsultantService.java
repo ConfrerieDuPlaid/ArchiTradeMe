@@ -27,6 +27,9 @@ public final class SearchConsultantService implements QueryHandler<List<SearchCo
                 .withMaxAverageDailyRate(AverageDailyRate.of(Optional.ofNullable(query.maxAverageDailyRate).orElse(Double.MAX_VALUE)));
         final var founded = this.searchConsultantPort.search(criteria);
 
-        return founded.stream().map(SearchConsultantResultDto::fromConsultant).toList();
+        return founded.stream()
+                .map(ConsultantReadModel::from)
+                .map(SearchConsultantResultDto::fromConsultantReadModel)
+                .toList();
     }
 }

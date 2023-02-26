@@ -6,7 +6,7 @@ public final class AverageDailyRate {
 
     private final double value;
 
-    private AverageDailyRate(double value) {
+    public AverageDailyRate(double value) {
         if(value < 0.0) throw new IllegalArgumentException("ADR cannot be strict negative");
         this.value = value;
     }
