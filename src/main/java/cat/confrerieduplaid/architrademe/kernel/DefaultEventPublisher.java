@@ -17,7 +17,6 @@ public final class DefaultEventPublisher<E extends Event> implements EventPublis
         var eventHandler = register.get(event.getClass());
         if (eventHandler == null) {
             log.warn("No handler found for event {}", event.getClass().getSimpleName());
-
         } else {
             eventHandler.handle(event);
         }

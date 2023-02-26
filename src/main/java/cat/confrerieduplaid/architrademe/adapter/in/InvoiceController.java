@@ -9,21 +9,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/invoices")
 @RequiredArgsConstructor
 public class InvoiceController{
 
     private final CommandBus commandBus;
     private final QueryBus queryBus;
 
-    @GetMapping("/montly/{idConsultant}")
+    @GetMapping("/monthly/{year}/{month}/{idConsultant}")
     public ResponseEntity<MonthlyInvoiceResponse> getMonthlyInvoice(
-            @RequestParam Integer year,
-            @RequestParam String month,
+            @PathVariable Integer year,
+            @PathVariable String month,
             @PathVariable String idConsultant
     ) {
         final var invoice = (ConsultantMonthlyInvoice) queryBus
-                .post(new RetrieveMonthlyInvoiceOfConsultantInterventionsQuery(2023, "FEBRUARY", idConsultant));
+                .post(new RetrieveMonthlyInvoiceOfConsultantInterventionsQuery(
+                        year
+                        , month.toUpperCase().trim()
+                        , idConsultant));
 
         return ResponseEntity.ok(MonthlyInvoiceResponse.fromDomain(invoice));
     }

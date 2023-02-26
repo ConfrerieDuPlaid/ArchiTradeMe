@@ -40,4 +40,16 @@ public final class Intervention {
     public Integer numberOfHoursWorked() {
         return numberOfHoursWorked;
     }
+
+    public String title() {
+        return title;
+    }
+
+    public Integer year() {
+        return year;
+    }
+
+    public String month() {
+        return monthName;
+    }
 }

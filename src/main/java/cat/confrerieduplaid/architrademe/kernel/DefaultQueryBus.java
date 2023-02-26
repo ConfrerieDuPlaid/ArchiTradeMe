@@ -1,7 +1,10 @@
 package cat.confrerieduplaid.architrademe.kernel;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 
+@Slf4j
 final class DefaultQueryBus<Q extends Query> implements QueryBus<Q> {
 
     private final Map<Class<Q>, QueryHandler> registry;
@@ -13,6 +16,7 @@ final class DefaultQueryBus<Q extends Query> implements QueryBus<Q> {
     @Override
     public <R> R post(Q query) {
         if (!query.validate()) {
+            log.error(query.toString());
             throw new ApplicationException("Command " + query.name() + " not valid");
         }
 

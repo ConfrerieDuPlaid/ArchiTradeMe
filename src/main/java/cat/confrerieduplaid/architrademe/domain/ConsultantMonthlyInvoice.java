@@ -17,6 +17,12 @@ public final class ConsultantMonthlyInvoice {
         return new ConsultantMonthlyInvoice(consultantId, lines);
     }
 
+    public Double total() {
+        return lines.stream()
+                .mapToDouble(ConsultantMonthlyInvoiceLine::amountTaxesIncluded)
+                .sum();
+    }
+
     public ConsultantId consultantId() {
         return consultantId;
     }

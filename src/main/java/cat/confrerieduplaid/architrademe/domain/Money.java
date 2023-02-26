@@ -2,7 +2,7 @@ package cat.confrerieduplaid.architrademe.domain;
 
 import java.util.Objects;
 
-final class Money {
+public final class Money {
     private final Double amount;
 
     private Money(Double amount) {
