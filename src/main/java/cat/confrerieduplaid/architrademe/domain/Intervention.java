@@ -30,7 +30,7 @@ public final class Intervention {
     }
 
     public boolean happenedIn(Integer year, String monthName) {
-        return this.year == year && this.monthName == monthName;
+        return Objects.equals(this.year, year) && Objects.equals(this.monthName, monthName);
     }
 
     public Money hourPrice() {

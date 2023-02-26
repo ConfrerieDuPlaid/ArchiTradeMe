@@ -22,7 +22,8 @@ public final class Money {
     }
 
     public Money add(VAT vat) {
-        return Money.of(amount * (1 + vat.perCent()/100));
+        final var newAmount = amount + (amount * vat.rate());
+        return Money.of(newAmount);
     }
 
     public Money times(Integer integer) {
